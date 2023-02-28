@@ -13,6 +13,7 @@ func main() {
 		Name:      "PHP Version Manager",
 		Usage:     "A cli tool for manage PHP versions",
 		UsageText: "pvm command [command options] [arguments...]",
+
 		Commands: []*cli.Command{
 			{
 				Name:    "list",
@@ -21,10 +22,22 @@ func main() {
 				Action:  commands.List,
 			},
 			{
+				Name:    "use",
+				Usage:   "Change PHP version active",
+				Aliases: []string{"u"},
+				Action:  commands.Use,
+			},
+			{
 				Name:    "current",
 				Usage:   "Show PHP version active",
 				Aliases: []string{"c"},
 				Action:  commands.Current,
+			},
+			{
+				Name:    "init",
+				Usage:   "Initial setup for pvm",
+				Aliases: []string{"in"},
+				Action:  commands.Init,
 			},
 		},
 	}

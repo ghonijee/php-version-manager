@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"os/exec"
 	"strings"
 
 	"github.com/ghonijee/php-version-manager/utils"
@@ -12,20 +11,17 @@ import (
 )
 
 func List(ctx *cli.Context) error {
-	pathInstalled := utils.PathInstalled()
-	entries, err := os.ReadDir(pathInstalled)
+	BrewPhpInstalled := utils.BrewPhpInstalled()
+	entries, err := os.ReadDir(BrewPhpInstalled)
 	if err != nil {
 		log.Panicln(err)
 	}
-	fmt.Println("PHP Installed:")
+	fmt.Println("PHP Installed: ")
 	for _, dir := range entries {
 		if strings.Contains(dir.Name(), "php") && dir.IsDir() {
-			commandList := fmt.Sprintf("%s%s", pathInstalled, dir.Name())
-			dirPhp, err := exec.Command("ls", commandList).Output()
-			if err != nil {
-				log.Panicln(err)
-			}
-			fmt.Printf("php %s \n", string(dirPhp)[:3])
+			commandList := fmt.Sprintf("ls %s%s", BrewPhpInstalled, dir.Name())
+			dirPhp := utils.Cli(commandList)
+			fmt.Printf("php %s \n", dirPhp.Removeln()[:3])
 		}
 	}
 
