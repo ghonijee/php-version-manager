@@ -11,7 +11,7 @@ import (
 
 var phpTap = "shivammathur/php"
 var BREW_DISABLE_AUTO_CLEANUP = "HOMEBREW_NO_INSTALL_CLEANUP=1"
-var filePath = "/Users/yunus-floo/.pvm_zsh.zsh"
+var fileName = ".pvm_zsh.zsh"
 
 func Init(ctx *cli.Context) error {
 	var result utils.CliResult
@@ -34,7 +34,9 @@ func Init(ctx *cli.Context) error {
 		fmt.Printf("PHP is not installed, installing now via brew tap \"%s\" \n", phpTap)
 		utils.Cli(BREW_DISABLE_AUTO_CLEANUP + " brew install php")
 	}
-	file, err := os.Create(filePath)
+	result = utils.Cli("echo $HOME")
+	bashFileLocation := fmt.Sprintf("%s/%s", result.Removeln(), fileName)
+	file, err := os.Create(bashFileLocation)
 	utils.ErrCheck(err)
 	defer file.Close()
 

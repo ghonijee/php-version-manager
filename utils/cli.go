@@ -9,6 +9,7 @@ import (
 
 type CliResult struct {
 	Value string
+	Error string
 }
 
 // Remove new line from string Value
