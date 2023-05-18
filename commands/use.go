@@ -55,12 +55,11 @@ func Use(ctx *cli.Context) error {
 
 	// Source bash for apply change version
 	targetCommand := fmt.Sprintf("export PATH=%s:$PATH", targetVersionBinPath.Removeln())
-	fmt.Println(targetCommand)
-	utils.Cli("source " + getFilePath())
-	utils.CliNew("bash", "-c", targetCommand)
-	utils.CliNew("bash", "source", getFilePath())
+	// utils.CliNew("bash", targetCommand)
 
-	fmt.Println("Use PHP version: " + newVersion)
+	utils.CliNew("source", getFilePath())
+
+	fmt.Println("Use PHP version: " + newVersion + targetCommand)
 	return nil
 }
 
